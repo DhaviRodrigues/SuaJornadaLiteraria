@@ -108,7 +108,7 @@ print(f"Para lazer, você dedica aproximadamente {horas_lazer_anual:.1f} horas p
 
 # Estimativa de tempo para ler 1000 livros
 tempo_para_mil_livros = estimativa_1000_anos(total_livros)
-if tempo_para_mil_livros is < 0:
+if tempo_para_mil_livros < 0:
     print("Se você não leu nenhum livro no último ano, o caminho para 1000 livros pode ser longo. Que tal começar com um objetivo pequeno?")
 else:
     print(f"Mantendo seu ritmo atual, você levaria cerca de {tempo_para_mil_livros:.1f} anos para ler 1000 livros. Uma meta e tanto!\n")
@@ -116,6 +116,20 @@ else:
 # Estimativa de quilômetros andados
 calcular_equivalencia_tempo(total_horas)
 
+if total_horas < 0:
+    print("Se você não leu nenhum livro no último ano, o que seria equivalente, em horas, a 0 km andados")
+else:
+    print(f"Com {total_horas:.1f} horas de leitura, você teria andado aproximadamente {calcular_equivalencia_tempo(total_horas)[0]:.1f} km")
+
+if total_horas < 0:
+    print("Se você não leu nenhum livro no último ano, o que seria equivalente, em horas, a 0 filmes assistidos")
+else:
+    print(f"Com {total_horas:.1f} horas de leitura, você teria assistido aproximadamente {calcular_equivalencia_tempo(total_horas)[1]:.1f} filmes")
+
+if total_horas < 0:
+    print("Se você não leu nenhum livro no último ano, o que seria equivalente, em horas, ao tempo de nenhuma disciplinas de graduação")
+else:
+    print(f"Com {total_horas:.1f} horas de leitura, você teria estudado o equivalente a {calcular_equivalencia_tempo(total_horas)[2]:.1f} disciplinas de graduação.\n")    
 
 
 # Sugestão de leitura baseada em gênero
