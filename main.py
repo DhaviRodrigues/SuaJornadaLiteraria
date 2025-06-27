@@ -1,4 +1,5 @@
 from datetime import datetime
+import time
 
 # Função para estimar a leitura em um período de 5 anos
 def estimativa_5_anos(livros_por_ano, anos=5):
@@ -58,10 +59,11 @@ def calcular_horas_lazer_anual(horas_semanais):
     """
     return horas_semanais * 52
 
-# Coleta de Dados do Usuário
 # Função para coletar todas as informações do usuário com validações
 def coletar_dados():
-    print("Olá! Vamos coletar alguns dados sobre seus hábitos de leitura.\n")
+    print("="*65)
+    print("Olá! Vamos coletar alguns dados sobre seus hábitos de leitura.")
+    print("="*65)
 
     # Coleta e valida o nome
     while True:
@@ -165,8 +167,6 @@ print("="*50 + "\n")
 # Mensagem de boas-vindas personalizada
 print(f"Olá, {dados_usuario['nome']}! É um prazer ter você por aqui.")
 # Informação sobre o potencial de leitura baseado na idade
-print(f"Com seus {dados_usuario['idade']} anos, você faz parte de um grupo demográfico com grande potencial para explorar novos mundos através dos livros!")
-print("Continuar lendo é uma excelente forma de se manter atualizado e enriquecer sua vida!\n")
 
 # Calcula o total de livros lidos no último ano
 total_livros = dados_usuario['livros_digitais'] + dados_usuario['livros_fisicos']
@@ -178,25 +178,30 @@ estimativa_5_anos = estimativa_5_anos(total_livros, 5)
 # Exibe a estimativa de leitura e o feedback
 print(f"Com base no seu ritmo atual de {total_livros} livros lidos no último ano, estimamos que você leria aproximadamente {estimativa_5_anos:.0f} livros nos próximos 5 anos!")
 print(feedback(total_livros))
+time.sleep(2)
+
 print(f"Sua preferência é por livros {dados_usuario['preferencia_leitura']}.\n")
+time.sleep(2)
 
 # Calcula e exibe as horas anuais dedicadas a estudo
 horas_estudo_anual = calcular_horas_estudo_anual(dados_usuario['horas_estudo_semanais'])
 print(f"Você dedica cerca de {horas_estudo_anual:.1f} horas aos estudos com livros por ano. Isso é um ótimo investimento em seu conhecimento!\n")
+time.sleep(2)
 
 # Calcula e exibe as horas anuais dedicadas a lazer
 horas_lazer_anual = calcular_horas_lazer_anual(dados_usuario['horas_lazer_semanais'])
 print(f"Para lazer, você dedica aproximadamente {horas_lazer_anual:.1f} horas por ano aos livros. Isso é excelente para relaxar e se divertir!\n")
-
-# Funções Criativas de Tendências/Estimativas
+time.sleep(2)
 
 # Estima e exibe o tempo para ler 1000 livros
 tempo_para_mil_livros = estimativa_1000_anos(total_livros)
+
 # A condição 'tempo_para_mil_livros < 0' nunca será verdadeira com a implementação atual da função estimativa_1000_anos
 if tempo_para_mil_livros < 0:
     print("Se você não leu nenhum livro no último ano, o caminho para 1000 livros pode ser longo. Que tal começar com um objetivo pequeno?")
 else:
     print(f"Mantendo seu ritmo atual, você levaria cerca de {tempo_para_mil_livros:.1f} anos para ler 1000 livros. Uma meta e tanto!\n")
+time.sleep(2)
 
 # Recalcula o total de horas anuais dedicadas à leitura (estudo + lazer)
 total_horas_anuais = horas_estudo_anual + horas_lazer_anual
@@ -212,11 +217,13 @@ else:
            Andado {km_andados:.1f} km
            Visto {filmes_assistidos:.1f} filmes
            Ou cursado {disciplinas_graduacao:.1f} disciplinas de graduação.\n""")
+time.sleep(3)
 
 # Sugestão de leitura baseada no gênero favorito
 print(f"Como seu gênero favorito é '{dados_usuario['genero_favorito']}', que tal explorar autores novos ou clássicos dentro dessa área para expandir suas leituras?\n")
+time.sleep(2)
 
 # Imprime o rodapé final do relatório
-print("="*50)
+print("="*70)
 print("Obrigado por participar! Continue cultivando o hábito da leitura!")
-print("="*50)
+print("="*70)
