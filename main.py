@@ -30,12 +30,13 @@ def estimativa_1000_anos(livros_por_ano):
     else:
         print("Você não leu nenhum livro no último ano.")
 
-def calcular_equivalencia_tempo(total_horas):
-    total_minutos_anuais = total_horas * 60
+def calcular_equivalencia_tempo(total_horas_anuais):
+    total_minutos_anuais = total_horas_anuais * 60
 
     km_andados = float (total_minutos_anuais / 12)
     filmes_assistidos = float(total_minutos_anuais / 120)
-    disciplinas_graduacao = float(total_horas / 60)
+    disciplinas_graduacao = float(total_horas_anuais / 60)
+
     return km_andados, filmes_assistidos, disciplinas_graduacao
 
 def calcular_horas_estudo_anual(horas_semanais):
@@ -53,19 +54,78 @@ def calcular_horas_lazer_anual(horas_semanais):
 # --- Coleta de Dados do Usuário ---
 
 def coletar_dados():
-    """
-    Coleta todas as informações do usuário e retorna um dicionário.
-    """
     print("Olá! Vamos coletar alguns dados sobre seus hábitos de leitura.\n")
 
-    nome = input("Qual é o seu nome? ").strip().title()
-    idade = int(input("Qual é a sua idade? "))
-    livros_digitais = int(input("Quantos livros digitais você leu no último ano? "))
-    livros_fisicos = int(input("Quantos livros físicos você leu no último ano? "))
-    preferencia_leitura = input("Qual sua preferência de leitura (Digital, como Kindle, ou Físico)? ").strip().title()
-    horas_estudo_semanais = float(input("Quantas horas você dedica aos livros de estudo por semana? "))
-    horas_lazer_semanais = float(input("Quantas horas você dedica aos livros por lazer na semana? "))
-    genero_favorito = input("Qual é o seu gênero literário favorito? ").strip().title()
+    while True:
+        nome = input("Qual é o seu nome? ").strip().title()
+        if nome:
+            break
+        else:
+            print("Nome não pode ser vazio. Por favor, digite seu nome.")
+
+    while True:
+        try:
+            idade = int(input("Qual é a sua idade? "))
+            if idade > 0:
+                break
+            else:
+                print("Idade deve ser um número positivo.")
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número inteiro para a idade.")
+
+    while True:
+        try:
+            livros_digitais = int(input("Quantos livros digitais você leu no último ano? "))
+            if livros_digitais >= 0:
+                break
+            else:
+                print("A quantidade de livros digitais não pode ser negativa.")
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número inteiro para livros digitais.")
+
+    while True:
+        try:
+            livros_fisicos = int(input("Quantos livros físicos você leu no último ano? "))
+            if livros_fisicos >= 0:
+                break
+            else:
+                print("A quantidade de livros físicos não pode ser negativa.")
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número inteiro para livros físicos.")
+
+    while True:
+        preferencia_leitura = input("Qual sua preferência de leitura (Digital, como Kindle, ou Físico)? ").strip().title()
+        if preferencia_leitura:
+            break
+        else:
+            print("Preferência de leitura não pode ser vazia. Por favor, digite sua preferência.")
+
+    while True:
+        try:
+            horas_estudo_semanais = float(input("Quantas horas você dedica aos livros de estudo por semana? "))
+            if horas_estudo_semanais >= 0:
+                break
+            else:
+                print("As horas de estudo não podem ser negativas.")
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número para as horas de estudo.")
+
+    while True:
+        try:
+            horas_lazer_semanais = float(input("Quantas horas você dedica aos livros por lazer na semana? "))
+            if horas_lazer_semanais >= 0:
+                break
+            else:
+                print("As horas de lazer não podem ser negativas.")
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número para as horas de lazer.")
+
+    while True:
+        genero_favorito = input("Qual é o seu gênero literário favorito? ").strip().title()
+        if genero_favorito:
+            break
+        else:
+            print("Gênero favorito não pode ser vazio. Por favor, digite seu gênero.")
 
     return {
         "nome": nome,
@@ -77,7 +137,6 @@ def coletar_dados():
         "horas_lazer_semanais": horas_lazer_semanais,
         "genero_favorito": genero_favorito
     }
-
 dados_usuario = coletar_dados()
 
 print("\n" + "="*50)
@@ -89,7 +148,7 @@ print(f"Olá, {dados_usuario['nome']}! É um prazer ter você por aqui.")
 
 # 2 - Estimativa de Leitura
 total_livros = dados_usuario['livros_digitais'] + dados_usuario['livros_fisicos']
-total_horas = dados_usuario['horas_lazer_semanais'] + dados_usuario['horas_estudo_semanais']
+total_horas_anuais = dados_usuario['horas_lazer_semanais'] + dados_usuario['horas_estudo_semanais']
 estimativa_5_anos = estimativa_5_anos(total_livros, 5)
 
 print(f"Com base no seu ritmo atual de {total_livros} livros lidos no último ano, estimamos que você leria aproximadamente {estimativa_5_anos:.0f} livros nos próximos 5 anos!")
@@ -114,23 +173,17 @@ else:
     print(f"Mantendo seu ritmo atual, você levaria cerca de {tempo_para_mil_livros:.1f} anos para ler 1000 livros. Uma meta e tanto!\n")
 
 # Estimativa de quilômetros andados
-calcular_equivalencia_tempo(total_horas)
+total_horas_anuais = horas_estudo_anual + horas_lazer_anual
+km_andados, filmes_assistidos, disciplinas_graduacao = calcular_equivalencia_tempo(total_horas_anuais)
 
-if total_horas < 0:
+if total_horas_anuais < 0:
     print("Se você não leu nenhum livro no último ano, o que seria equivalente, em horas, a 0 km andados")
 else:
-    print(f"Com {total_horas:.1f} horas de leitura, você teria andado aproximadamente {calcular_equivalencia_tempo(total_horas)[0]:.1f} km")
-
-if total_horas < 0:
-    print("Se você não leu nenhum livro no último ano, o que seria equivalente, em horas, a 0 filmes assistidos")
-else:
-    print(f"Com {total_horas:.1f} horas de leitura, você teria assistido aproximadamente {calcular_equivalencia_tempo(total_horas)[1]:.1f} filmes")
-
-if total_horas < 0:
-    print("Se você não leu nenhum livro no último ano, o que seria equivalente, em horas, ao tempo de nenhuma disciplinas de graduação")
-else:
-    print(f"Com {total_horas:.1f} horas de leitura, você teria estudado o equivalente a {calcular_equivalencia_tempo(total_horas)[2]:.1f} disciplinas de graduação.\n")    
-
+    print(f"""Em um ano com {total_horas_anuais:.1f} horas de leitura, você teria, aproximadamente:
+           Andado {km_andados:.1f} km
+           Visto {filmes_assistidos:.1f} filmes
+           Ou cursado {disciplinas_graduacao:.1f} disciplinas de graduação.\n""")
+           
 
 # Sugestão de leitura baseada em gênero
 print(f"Como seu gênero favorito é '{dados_usuario['genero_favorito']}', que tal explorar autores novos ou clássicos dentro dessa área para expandir suas leituras?\n")
